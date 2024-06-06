@@ -1,0 +1,29 @@
+{
+  "name": "HTTPModule",
+  "version": "0.0.1",
+  "summary": "A short description of HTTPModule.",
+  "homepage": "https://github.com/masterAventador?tab=repositories",
+  "authors": {
+    "masterAventador": "419460185@qq.com"
+  },
+  "platforms": {
+    "ios": "13.0"
+  },
+  "source": {
+    "git": "https://github.com/masterAventador?tab=repositories",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "Classes",
+    "Classes/**/*.{h,m,swift}"
+  ],
+  "exclude_files": "Classes/Exclude",
+  "dependencies": {
+    "SwiftProtobuf": [
+
+    ],
+    "Alamofire": [
+
+    ]
+  }
+}

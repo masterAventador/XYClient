@@ -1,0 +1,6 @@
+framework module HTTPModule {
+  umbrella header "HTTPModule-umbrella.h"
+
+  export *
+  module * { export * }
+}
