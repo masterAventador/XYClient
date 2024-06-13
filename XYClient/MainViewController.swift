@@ -14,13 +14,5 @@ class MainViewController: XYViewController {
         super.viewDidLoad()
         view.backgroundColor = .gray
         
-        Http.post(Http_LoginReq(), responseType: Http_LoginResp.self) { result in
-            switch result {
-            case .success(let value):
-                print(value)
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 }

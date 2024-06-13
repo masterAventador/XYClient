@@ -15,7 +15,7 @@
   },
   "source_files": [
     "Classes",
-    "Classes/**/*.{h,m}"
+    "Classes/**/*.{h,m,swift}"
   ],
   "exclude_files": "Classes/Exclude"
 }
