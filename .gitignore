@@ -2,5 +2,4 @@
 XYClient.xcworkspace/xcuserdata
 Podfile.lock
 .DS_Store
-Pods/Manifest.lock
-Pods/Pods.xcodeproj/xcuserdata
+Pods
