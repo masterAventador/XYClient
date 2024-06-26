@@ -1,5 +1,5 @@
 
 XYClient.xcworkspace/xcuserdata
 Podfile.lock
-.DS_Store
+*.DS_Store
 Pods

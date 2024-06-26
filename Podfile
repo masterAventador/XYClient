@@ -12,6 +12,6 @@ target 'XYClient' do
   # Pods for XYClient
   
   pod 'HTTPModule', :path=> 'LocalLibs/HTTPModule'
-  pod 'BaseViewModule', :path=> 'LocalLibs/BaseViewModule'
+  pod 'CommonViewModule', :path=> 'LocalLibs/CommonViewModule'
 
 end

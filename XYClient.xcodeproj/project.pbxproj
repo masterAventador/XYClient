@@ -11,7 +11,7 @@
 		A44261B42C1132D600125BDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44261B32C1132D600125BDB /* AppDelegate.swift */; };
 		A44261BD2C1132D700125BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A44261BC2C1132D700125BDB /* Assets.xcassets */; };
 		A44261C02C1132D700125BDB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A44261BF2C1132D700125BDB /* Base */; };
-		A44261CC2C11425D00125BDB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44261CB2C11425D00125BDB /* MainViewController.swift */; };
+		A44261CC2C11425D00125BDB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44261CB2C11425D00125BDB /* LoginVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		A44261BC2C1132D700125BDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A44261BF2C1132D700125BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A44261C12C1132D700125BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A44261CB2C11425D00125BDB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A44261CB2C11425D00125BDB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +55,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A40608B12C2BCCE20015C716 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A44261CB2C11425D00125BDB /* LoginVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		A44261A72C1132D600125BDB = {
 			isa = PBXGroup;
 			children = (
@@ -76,11 +84,11 @@
 		A44261B22C1132D600125BDB /* XYClient */ = {
 			isa = PBXGroup;
 			children = (
+				A40608B12C2BCCE20015C716 /* Login */,
 				A44261B32C1132D600125BDB /* AppDelegate.swift */,
 				A44261BC2C1132D700125BDB /* Assets.xcassets */,
 				A44261BE2C1132D700125BDB /* LaunchScreen.storyboard */,
 				A44261C12C1132D700125BDB /* Info.plist */,
-				A44261CB2C11425D00125BDB /* MainViewController.swift */,
 			);
 			path = XYClient;
 			sourceTree = "<group>";
@@ -200,7 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A44261B42C1132D600125BDB /* AppDelegate.swift in Sources */,
-				A44261CC2C11425D00125BDB /* MainViewController.swift in Sources */,
+				A44261CC2C11425D00125BDB /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
