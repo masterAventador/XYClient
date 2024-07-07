@@ -7,7 +7,8 @@
 
 struct CommonViewModule {}
 
-public struct CommonColor {
-    public let BGColor: UIColor = .white
-    
-}
+
+
+
+
+

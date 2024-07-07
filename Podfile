@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 
 
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 inhibit_all_warnings!
 
@@ -13,5 +13,4 @@ target 'XYClient' do
   
   pod 'HTTPModule', :path=> 'LocalLibs/HTTPModule'
   pod 'CommonViewModule', :path=> 'LocalLibs/CommonViewModule'
-
 end
