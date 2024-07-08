@@ -26,6 +26,7 @@ class LoginViewController: XYViewController {
         view.addGestureRecognizer(tapGesture)
         
         loginView = LoginView()
+        loginView.delegate = self
         loginView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginView)
         
@@ -51,5 +52,15 @@ class LoginViewController: XYViewController {
         Screen.keyWindow?.endEditing(true)
     }
     
+}
+
+extension LoginViewController: LoginViewDelegate {
+    func loginViewLoginButtonPressed(_ loginView: LoginView) {
+        
+    }
+    
+    func loginViewPolicyLabelClicked(_ loginView: LoginView, url: URL) {
+        
+    }
 }
 

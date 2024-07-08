@@ -9,7 +9,8 @@ import UIKit
 import CommonViewModule
 
 protocol LoginViewDelegate: AnyObject {
-    func loginViewLoginButtonPressed(_ loginView:LoginView)
+    func loginViewLoginButtonPressed(_ loginView: LoginView)
+    func loginViewPolicyLabelClicked(_ loginView: LoginView,url: URL)
 }
 
 class LoginView: UIView {
@@ -18,14 +19,35 @@ class LoginView: UIView {
     static let verticalGap = 20.0
     static let inputHeight = 50.0
     static let checkBoxWidth = 20.0
+    static let policyLabelHorizonGap = 10.0
     static let loginBtnHeight = 50.0
+    
+    static let policyAttributeString = {
+        let policyName = "《用户隐私协议》"
+        let policyString = "我已阅读并同意\(policyName)"
+        let policyAttribute = NSMutableAttributedString(string: policyString)
+        let policyNameRange = policyString.range(of: policyName)!
+        let policyNameNSRange = NSRange(policyNameRange, in: policyString)
+        policyAttribute.addAttributes([.link:"https://www.baidu.com",
+                                       .foregroundColor:CommonColor.link], range: policyNameNSRange)
+        return policyAttribute
+    }()
+    
+    static let policySize = {
+        let stringRect = policyAttributeString.boundingRect(with: CGSizeMake(Screen.width - horizonGap * 2 - checkBoxWidth - policyLabelHorizonGap, CGFloat.greatestFiniteMagnitude),options: [.usesFontLeading,.usesLineFragmentOrigin], context: nil)
+        return stringRect.size
+    }()
+    
+    static let policyLabelHeight = {
+        return Double.maximum(checkBoxWidth, policySize.height)
+    }()
     
     static let defaultHeight = 
     inputHeight /*accountInput*/ +
     verticalGap +
     inputHeight /*passwordInput*/ +
     verticalGap +
-    checkBoxWidth +
+    policyLabelHeight +
     verticalGap +
     loginBtnHeight
     
@@ -42,7 +64,16 @@ class LoginView: UIView {
         return button
     }()
     
-    let policyTextView = UITextView()
+    let policyTextView = {
+        let p = UITextView()
+        p.attributedText = policyAttributeString
+        p.textContainerInset = .zero
+        p.isScrollEnabled = false
+        p.isEditable = false
+        p.textContainer.lineFragmentPadding = 0
+        p.translatesAutoresizingMaskIntoConstraints = false
+        return p
+    }()
     
     let loginButton = {
         var configuration = UIButton.Configuration.plain()
@@ -78,10 +109,10 @@ class LoginView: UIView {
         accountTextField.enablesReturnKeyAutomatically = true
         accountTextField.delegate = self
         accountTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(accountTextField)
+        addSubview(accountTextField)
         
         let accountLine = getLineView()
-        self.addSubview(accountLine)
+        addSubview(accountLine)
         
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [.foregroundColor:CommonColor.placeholder])
         passwordTextField.enablesReturnKeyAutomatically = true
@@ -90,29 +121,23 @@ class LoginView: UIView {
         self.addSubview(passwordTextField)
         
         let passwordLine = getLineView()
-        self.addSubview(passwordLine)
+        addSubview(passwordLine)
         
         checkBox.addTarget(self, action: #selector(checkBoxPressed), for: .touchUpInside)
-        self.addSubview(checkBox)
+        addSubview(checkBox)
         
-        let policyName = "《用户隐私协议》"
-        let policyString = "我已阅读并同意\(policyName)"
-        let policyAttribute = NSMutableAttributedString(string: policyString)
-        let policyNameRange = policyString.range(of: policyName)!
-        let policyNameNSRange = NSRange(policyNameRange, in: policyString)
-        policyAttribute.addAttribute(.link, value: "https://www.baidu.com", range: policyNameNSRange)
         policyTextView.delegate = self
-        
+        addSubview(policyTextView)
         
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        self.addSubview(loginButton)
+        addSubview(loginButton)
         
         
         NSLayoutConstraint.activate([
             accountTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
             accountTextField.topAnchor.constraint(equalTo: topAnchor),
-            accountTextField.widthAnchor.constraint(equalTo: widthAnchor, constant: -LoginView.horizonGap * 2),
-            accountTextField.heightAnchor.constraint(equalToConstant: LoginView.inputHeight),
+            accountTextField.widthAnchor.constraint(equalTo: widthAnchor, constant: -Self.horizonGap * 2),
+            accountTextField.heightAnchor.constraint(equalToConstant: Self.inputHeight),
             
             accountLine.centerXAnchor.constraint(equalTo: accountTextField.centerXAnchor),
             accountLine.bottomAnchor.constraint(equalTo: accountTextField.bottomAnchor),
@@ -120,7 +145,7 @@ class LoginView: UIView {
             accountLine.heightAnchor.constraint(equalToConstant: 0.5),
             
             passwordTextField.centerXAnchor.constraint(equalTo: accountTextField.centerXAnchor),
-            passwordTextField.topAnchor.constraint(equalTo: accountTextField.bottomAnchor, constant: LoginView.verticalGap),
+            passwordTextField.topAnchor.constraint(equalTo: accountTextField.bottomAnchor, constant: Self.verticalGap),
             passwordTextField.widthAnchor.constraint(equalTo: accountTextField.widthAnchor),
             passwordTextField.heightAnchor.constraint(equalTo: accountTextField.heightAnchor),
             
@@ -130,30 +155,43 @@ class LoginView: UIView {
             passwordLine.heightAnchor.constraint(equalToConstant: 0.5),
             
             checkBox.leftAnchor.constraint(equalTo: passwordTextField.leftAnchor),
-            checkBox.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: LoginView.verticalGap),
-            checkBox.widthAnchor.constraint(equalToConstant: LoginView.checkBoxWidth),
-            checkBox.heightAnchor.constraint(equalToConstant: LoginView.checkBoxWidth),
+            checkBox.centerYAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: Self.verticalGap + Self.policyLabelHeight/2),
+            checkBox.widthAnchor.constraint(equalToConstant: Self.checkBoxWidth),
+            checkBox.heightAnchor.constraint(equalToConstant: Self.checkBoxWidth),
+            
+            policyTextView.leftAnchor.constraint(equalTo: checkBox.rightAnchor, constant: Self.policyLabelHorizonGap),
+            policyTextView.centerYAnchor.constraint(equalTo: checkBox.centerYAnchor),
+            policyTextView.widthAnchor.constraint(equalToConstant: Self.policySize.width),
+            policyTextView.heightAnchor.constraint(equalToConstant: Self.policySize.height),
             
             loginButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            loginButton.topAnchor.constraint(equalTo: checkBox.bottomAnchor, constant: Self.verticalGap),
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: Self.verticalGap + Self.policyLabelHeight + Self.verticalGap),
             loginButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -Self.horizonGap * 2),
             loginButton.heightAnchor.constraint(equalToConstant: Self.loginBtnHeight)
         ])
         
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidChanged), name: UITextField.textDidChangeNotification, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func checkBoxPressed() {
         checkBox.isSelected = !checkBox.isSelected
+        checkLoginButtonEnable()
     }
     
     @objc func loginButtonPressed() {
-        
+        if let delegate {
+            delegate.loginViewLoginButtonPressed(self)
+        }
     }
     
-    func isAllSet() -> Bool {
-        return accountTextField.hasText
+    func checkLoginButtonEnable() {
+        loginButton.isEnabled = accountTextField.hasText && passwordTextField.hasText && checkBox.isSelected
     }
-    
 }
 
 extension LoginView: UITextFieldDelegate {
@@ -161,18 +199,27 @@ extension LoginView: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    @objc func textFieldTextDidChanged(_ notify:Notification,second:Int) {
+        checkLoginButtonEnable()
+    }
 }
 
 extension LoginView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if let delegate {
+            delegate.loginViewPolicyLabelClicked(self, url: URL)
+        }
         return true
     }
     
     @available(iOS 17.0, *)
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         if case .link(let url) = textItem.content {
-            UIApplication.shared.open(url)
+            if let delegate {
+                delegate.loginViewPolicyLabelClicked(self,url: url)
+            }
         }
-        return defaultAction
+        return UIAction{_ in}
     }
 }
