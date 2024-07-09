@@ -184,9 +184,7 @@ class LoginView: UIView {
     }
     
     @objc func loginButtonPressed() {
-        if let delegate {
-            delegate.loginViewLoginButtonPressed(self)
-        }
+        delegate?.loginViewLoginButtonPressed(self)
     }
     
     func checkLoginButtonEnable() {
@@ -207,18 +205,14 @@ extension LoginView: UITextFieldDelegate {
 
 extension LoginView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if let delegate {
-            delegate.loginViewPolicyLabelClicked(self, url: URL)
-        }
+        delegate?.loginViewPolicyLabelClicked(self, url: URL)
         return true
     }
     
     @available(iOS 17.0, *)
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         if case .link(let url) = textItem.content {
-            if let delegate {
-                delegate.loginViewPolicyLabelClicked(self,url: url)
-            }
+            delegate?.loginViewPolicyLabelClicked(self,url: url)
         }
         return UIAction{_ in}
     }

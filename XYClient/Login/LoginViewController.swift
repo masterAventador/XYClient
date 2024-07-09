@@ -9,6 +9,7 @@ import UIKit
 import CommonViewModule
 import HTTPModule
 import SwiftProtobuf
+import WebViewModule
 
 class LoginViewController: XYViewController {
     let copyrightString = "Horzion Technology Co.,Ltd"
@@ -21,7 +22,6 @@ class LoginViewController: XYViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(gestureTapped))
         view.addGestureRecognizer(tapGesture)
         
@@ -60,7 +60,8 @@ extension LoginViewController: LoginViewDelegate {
     }
     
     func loginViewPolicyLabelClicked(_ loginView: LoginView, url: URL) {
-        
+        let webViewController = XYWebViewController(url)
+        navigationController?.pushViewController(webViewController, animated: true)
     }
 }
 

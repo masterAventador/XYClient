@@ -11,6 +11,13 @@ target 'XYClient' do
 
   # Pods for XYClient
   
+  
+  # public ThirdLibs
+  pod 'Toast-Swift'
+  
+  
+  # custom LocalLibs
   pod 'HTTPModule', :path=> 'LocalLibs/HTTPModule'
   pod 'CommonViewModule', :path=> 'LocalLibs/CommonViewModule'
+  pod 'WebViewModule', :path=> 'LocalLibs/WebViewModule'
 end
