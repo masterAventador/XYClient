@@ -10,8 +10,8 @@ import SwiftProtobuf
 import Alamofire
 
 public struct Http {
-//    static let urlString = "http://127.0.0.1:8080"
-    static let urlString = "http://8.140.207.230:8080"
+    static let urlString = "http://127.0.0.1:8080"
+//    static let urlString = "http://8.140.207.230:8080"
     
     static let url = URL(string: urlString)!
     
@@ -52,9 +52,20 @@ public struct Http {
         func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: (any Error)?) throws -> SerializedObject {
             guard error == nil else { throw error! }
             guard let data else { throw AFError.responseValidationFailed(reason: .dataFileNil) }
-            
             var transport = try PHM_response(serializedData: data)
+            
             return try T(unpackingAny: transport.payload)
         }
     }
 }
+
+public struct XYHttpError: Error,CustomStringConvertible {
+    
+    let code:Int
+    let msg:String
+    
+    public var description: String {
+        "code:\(code),msg:\(msg)"
+    }
+}
+
