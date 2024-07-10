@@ -8,7 +8,6 @@
 import UIKit
 import CommonViewModule
 import HTTPModule
-import SwiftProtobuf
 import WebViewModule
 
 class LoginViewController: XYViewController {
@@ -57,6 +56,19 @@ class LoginViewController: XYViewController {
 extension LoginViewController: LoginViewDelegate {
     func loginViewLoginButtonPressed(_ loginView: LoginView) {
         
+        let login = PHM_Login.with {
+            $0.account = "amigo"
+            $0.pwdMd5 = "amigo123"
+        }
+        
+        Http.post(.login, payload: login, responseType: PHM_LoginResp.self) { response in
+            switch response {
+            case .success(let resp):
+                print(resp)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func loginViewPolicyLabelClicked(_ loginView: LoginView, url: URL) {

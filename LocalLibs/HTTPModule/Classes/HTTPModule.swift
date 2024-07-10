@@ -54,6 +54,9 @@ public struct Http {
             guard let data else { throw AFError.responseValidationFailed(reason: .dataFileNil) }
             var transport = try PHM_response(serializedData: data)
             
+            guard transport.code == .success else {
+                throw XYHttpError(code: transport.code, msg: transport.msg)
+            }
             return try T(unpackingAny: transport.payload)
         }
     }
@@ -61,7 +64,7 @@ public struct Http {
 
 public struct XYHttpError: Error,CustomStringConvertible {
     
-    let code:Int
+    let code:PHM_code
     let msg:String
     
     public var description: String {
