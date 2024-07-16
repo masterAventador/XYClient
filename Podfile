@@ -13,11 +13,15 @@ target 'XYClient' do
   
   
   # public ThirdLibs
-  pod 'Toast-Swift'
+  pod 'Toast-Swift', '~> 5.1.1'
+  pod 'MMKV', '~> 1.3.7'
+  pod 'SwiftProtobuf', '~> 1.26.0'
+  pod 'Alamofire', '~> 5.9.1'
   
   
   # custom LocalLibs
   pod 'HTTPModule', :path=> 'LocalLibs/HTTPModule'
   pod 'CommonViewModule', :path=> 'LocalLibs/CommonViewModule'
   pod 'WebViewModule', :path=> 'LocalLibs/WebViewModule'
+  pod 'UDModule', :path=> 'LocalLibs/UDModule'
 end
